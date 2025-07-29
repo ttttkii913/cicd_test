@@ -86,7 +86,7 @@ jobs:
       # Add github ip to AWS (7)
       - name: Add GitHub IP to AWS
         run: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 || true
        
       # AWS EC2 Server Connect & Docker 명령어 실행 (8)
       - name: AWS EC2 Connection
@@ -102,7 +102,7 @@ jobs:
             sudo docker rm devdo2
             sudo docker rmi ttttkii91333/devdo2
             sudo docker pull ttttkii91333/devdo2
-            sudo docker run -it -d -p 8080:8080 --name devdo2 ttttkii91333/devdo2
+            sudo docker run -it -d -p 8081:8080 --name devdo2 ttttkii91333/devdo2
        
       # REMOVE GitHub IP FROM security group (9)
       - name: Remove IP FROM security group
