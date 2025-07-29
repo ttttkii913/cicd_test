@@ -169,7 +169,7 @@ public class CommunityService {
             community.increaseViewCount();
 
             // 24시간 후 만료
-            stringRedisTemplate.opsForValue().set(redisKey, "1", Duration.ofHours(24));
+            stringRedisTemplate.opsForValue().set(redisKey, "1", Duration.ofMinutes(1));
         }
         System.out.println("Redis 조회 여부: " + hasViewed);
         System.out.println("현재 게시글 조회수: " + community.getViewCount());
