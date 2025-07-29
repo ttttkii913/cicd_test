@@ -53,11 +53,11 @@ jobs:
  
       # Spring Boot 어플리케이션 Build (1)
       - name: Spring Boot Build
-        run: ./gradlew clean build --exclude-task test
+        run: cd DevDo && ./gradlew clean build --exclude-task test
  
       # Docker 이미지 Build (2)
       - name: docker image build
-        run: docker build -t ttttkii91333/devdo2 .
+        run: cd DevDo && docker build -t ttttkii91333/devdo2 .
  
       # DockerHub Login (3)
       - name: docker login
