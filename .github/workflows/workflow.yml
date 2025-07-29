@@ -90,8 +90,8 @@ jobs:
           timeout: 60s
           script: |
             cd /home/ec2-user/app/DevDo
-            sudo docker stop devdo2 || true
-            sudo docker rm devdo2 || true            
+            sudo docker stop devdo2-server || true
+            sudo docker rm devdo2-server || true            
             sudo docker-compose down
             sleep 2
             sudo docker pull ttttkii91333/devdo2
