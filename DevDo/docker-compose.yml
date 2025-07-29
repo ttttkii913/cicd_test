@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     image: ttttkii91333/devdo2
-    container_name: devdo2
+    container_name: devdo2-server
     ports:
       - "8081:8080"
     depends_on:
@@ -16,7 +16,7 @@ services:
 
   redis:
     image: redis:7.2
-    container_name: devdo2
+    container_name: devdo2-redis
     ports:
       - "6379:6379"
     volumes:
