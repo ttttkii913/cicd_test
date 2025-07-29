@@ -18,7 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
- 
+
+      - name: Change to project directory
+        run: cd DevDo
+        
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -28,12 +31,14 @@ jobs:
       - name: Copy Secret
         env:
           OCCUPY_SECRET: ${{ secrets.OCCUPY_SECRET }}
-          OCCUPY_SECRET_DIR: src/main/resources
+          OCCUPY_SECRET_DIR: DevDo/src/main/resources
           OCCUPY_SECRET_DIR_FILE_NAME: application-prod.yml
         run: echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
  
       - name: gradlew mod modify
-        run: chmod +x gradlew
+        run: | 
+          cd DevDo
+          chmod +x gradlew
  
       # gradle 캐싱 (0)
       - name: Gradle Caching
@@ -52,7 +57,7 @@ jobs:
  
       # Docker 이미지 Build (2)
       - name: docker image build
-        run: docker build -t ttttkii91333/devdo1 .
+        run: docker build -t ttttkii91333/devdo2 .
  
       # DockerHub Login (3)
       - name: docker login
@@ -63,7 +68,7 @@ jobs:
  
       # Docker Hub push (4)
       - name: docker Hub push
-        run: docker push ttttkii91333/devdo1
+        run: docker push ttttkii91333/devdo2
       
       # GET GitHub IP (5)
       - name: get GitHub IP
@@ -93,11 +98,11 @@ jobs:
           port: 22
           timeout: 60s
           script: |
-            sudo docker stop devdo1
-            sudo docker rm devdo1
-            sudo docker rmi ttttkii91333/devdo1
-            sudo docker pull ttttkii91333/devdo1
-            sudo docker run -it -d -p 8080:8080 --name devdo1 ttttkii91333/devdo1
+            sudo docker stop devdo2
+            sudo docker rm devdo2
+            sudo docker rmi ttttkii91333/devdo2
+            sudo docker pull ttttkii91333/devdo2
+            sudo docker run -it -d -p 8080:8080 --name devdo2 ttttkii91333/devdo2
        
       # REMOVE GitHub IP FROM security group (9)
       - name: Remove IP FROM security group
